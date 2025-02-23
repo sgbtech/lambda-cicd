@@ -1,29 +1,27 @@
-AWSTeplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: '2010-09-09'
 Description: 'S3 bucket with environment tagging'
 
 Parameters:
   Enviroment:
-    Types: String
+    Type: String
     Default: test
     AllowedValues:
       - test
-      - stagiing
+      - staging
       - production
 
 Resources:
   MyS3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: !Sub '${AWS::StackName}-${Environment}-bucket'
+      BucketName: '${AWS::StackName}-${Enviroment}-bucket'  # Correcting 'Environment' to 'Enviroment'
       Tags:
         - Key: Enviroment
-          Value: !Ref Environment
+          Value: Enviroment
         - Key: Project
           Value: GithubActionsTesting
 
-  Outputs:
-    BucketName:
-      Description: 'Name of the created S3 bucket'
-      Value: !Ref MyS3Bucket
-
-
+Outputs:
+  BucketName:
+    Description: 'Name of the created S3 bucket'  # Corrected typo in 'Description'
+    Value: MyS3Bucket
