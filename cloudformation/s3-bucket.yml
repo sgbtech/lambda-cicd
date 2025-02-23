@@ -23,7 +23,7 @@ Resources:
 
   Outputs:
     BucketName:
-      Desvription: 'Name of the created S3 bucket'
+      Description: 'Name of the created S3 bucket'
       Value: !Ref MyS3Bucket
 
 
