@@ -1,0 +1,27 @@
+AWSTeplateFormatVersion: '2010-09-09'
+Description: 'S3 bucket for our CICD PR'
+
+Parameters:
+  Enviroment:
+    Types: String
+    Default: test
+    AllowedValues:
+      - test
+      - stagiing
+      - production
+
+Resources:
+  MyS3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub '${AWS::StackName}-${Enviroment}-bucket'
+    Tags:
+      - Key: Enviroment
+        Value: !Ref Enviroment
+
+  Outputs:
+    BucketName:
+      Desvription: 'Name of created S3 Bucket'
+      Value: !Ref MyS3Bucket
+
+
