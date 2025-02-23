@@ -23,5 +23,5 @@ Resources:
 
 Outputs:
   BucketName:
-    Description: 'Name of the created S3 bucket'  # Description for the output
-    Value: !GetAtt MyS3Bucket.BucketName  # Get the actual bucket name
+    Description: 'Name of the created S3 bucket'
+    Value: !Sub 'MyS3Bucket-${AWS::StackName}-${Enviroment}'  # Output the same dynamic name used in BucketName
