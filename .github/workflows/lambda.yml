@@ -16,7 +16,7 @@ jobs:
       - name: Set Up Python # Sets up our Python enviroment
         uses: actions/setup-python@v2
         with:
-            python-version: '3.11'
+          python-version: '3.11'
 
       - name: Install Dependencies # Insatlls any packages
         run: |
