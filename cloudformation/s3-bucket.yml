@@ -1,5 +1,5 @@
 AWSTeplateFormatVersion: '2010-09-09'
-Description: 'S3 bucket for our CICD PR'
+Description: 'S3 bucket with enviroment tagging'
 
 Parameters:
   Enviroment:
@@ -14,16 +14,16 @@ Resources:
   MyS3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: 'unique-bucket-name-for-pr-${AWS::AccountId}'
+      BucketName: !Sub '${AWS::StackName}-${Enviroment}-bucket'
       Tags:
         - Key: Enviroment
           Value: !Ref Enviroment
-        - Key: Enviroment
+        - Key: Project
           Value: GithubActionsTesting
 
   Outputs:
     BucketName:
-      Desvription: 'Name of created S3 Bucket'
+      Desvription: 'Name of the created S3 bucket'
       Value: !Ref MyS3Bucket
 
 
