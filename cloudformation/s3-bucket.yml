@@ -14,7 +14,7 @@ Resources:
   MyS3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: !Sub '${AWS::StackName}-${Enviroment}-bucket'
+      BucketName: 'unique-bucket-name-for-pr-${AWS::AccountId}'
       Tags:
         - Key: Enviroment
           Value: !Ref Enviroment
