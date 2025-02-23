@@ -1,5 +1,5 @@
 AWSTeplateFormatVersion: '2010-09-09'
-Description: 'S3 bucket with enviroment tagging'
+Description: 'S3 bucket with environment tagging'
 
 Parameters:
   Enviroment:
@@ -14,10 +14,10 @@ Resources:
   MyS3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: !Sub 'steves_bucket'
+      BucketName: !Sub '${AWS::StackName}-${Environment}-bucket'
       Tags:
         - Key: Enviroment
-          Value: !Ref Enviroment
+          Value: !Ref Environment
         - Key: Project
           Value: GithubActionsTesting
 
