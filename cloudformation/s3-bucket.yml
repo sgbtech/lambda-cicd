@@ -24,4 +24,4 @@ Resources:
 Outputs:
   BucketName:
     Description: 'Name of the created S3 bucket'  # Description for the output
-    Value: !Ref MyS3Bucket  # Get the reference to the S3 bucket
+    Value: !GetAtt MyS3BucketBucketName  # Get the actual bucket name
