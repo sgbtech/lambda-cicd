@@ -14,7 +14,7 @@ Resources:
   MyS3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: !Sub '${AWS::StackName}-${Enviroment}-bucket'  # Correcting 'Environment' to 'Enviroment'
+      BucketName: !Sub 'MyS3Bucket'  # Correcting 'Environment' to 'Enviroment'
       Tags:
         - Key: Enviroment
           Value: !Ref Enviroment
