@@ -11,12 +11,12 @@ jobs:
     deploy-lambda: # Name of our job
       runs-on: windows-latest # Sets or specifies the runner
       steps:
-        - uses: actions/cjeckout@v2
+        - uses: actions/checkout@v2
 
         - name: Set Up Python # Sets up our Python enviroment
           uses: actions/setup-python@v2
           with:
-            python-version: '3.12'
+            python-version: '3.13'
 
         - name: Install Dependencies # Insatlls any packages
           run:
@@ -27,14 +27,14 @@ jobs:
           uses: aws-actions/configure-aws-credentials@v1
           with:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY}}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: eu-west-2
 
         - name: Deploy Lambda Function                                            
           run: |
             cd lambda
             zip -r lambda.zip .
-            aws lambda update-function-code --function-name my-test-cicd-lambda --zip-file fileb//lambda.zip
+            aws lambda update-function-code --function-name my-test-cicd-lambda --zip-file fileb://lambda.zip
 
 
 
