@@ -14,22 +14,6 @@ Resources:
   MyS3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      AWSTemplateFormatVersion: '2010-09-09'
-Description: 'S3 bucket with environment tagging'
-
-Parameters:
-  Enviroment:
-    Type: String
-    Default: test
-    AllowedValues:
-      - test
-      - staging
-      - production
-
-Resources:
-  MyS3Bucket:
-    Type: 'AWS::S3::Bucket'
-    Properties:
       BucketName: !Sub 'MyS3Bucket-${AWS::StackName}-${Enviroment}'  # Dynamic BucketName with StackName and Enviroment
       Tags:
         - Key: Enviroment
@@ -39,16 +23,5 @@ Resources:
 
 Outputs:
   BucketName:
-    Description: 'Name of the created S3 bucket'  # Corrected typo in 'Description'
-    Value: !Ref MyS3Bucket
-
-      Tags:
-        - Key: Enviroment
-          Value: !Ref Enviroment
-        - Key: Project
-          Value: GithubActionsTesting
-
-Outputs:
-  BucketName:
-    Description: 'Name of the created S3 bucket'  # Corrected typo in 'Description'
-    Value: !Ref MyS3Bucket
+    Description: 'Name of the created S3 bucket'  # Description for the output
+    Value: !Ref MyS3Bucket  # Get the reference to the S3 bucket
