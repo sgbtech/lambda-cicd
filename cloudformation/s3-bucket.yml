@@ -14,7 +14,7 @@ Resources:
   MyS3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: 'steves_bucket'
+      BucketName: !Sub 'steves_bucket'
       Tags:
         - Key: Enviroment
           Value: !Ref Enviroment
