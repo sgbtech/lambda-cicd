@@ -1,27 +1,27 @@
-AWSTeplateFormatVersion: '2010-09-09'
-Description: 'S3 bucket for our CICD PR'
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'S3 bucket with environment tagging'
 
 Parameters:
   Enviroment:
-    Types: String
+    Type: String
     Default: test
     AllowedValues:
       - test
-      - stagiing
+      - staging
       - production
 
 Resources:
   MyS3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: !Sub '${AWS::StackName}-${Enviroment}-bucket'
-    Tags:
-      - Key: Enviroment
-        Value: !Ref Enviroment
+      BucketName: !Sub 'MyS3Bucket-${AWS::StackName}-${Enviroment}'  # Dynamic BucketName with StackName and Enviroment
+      Tags:
+        - Key: Enviroment
+          Value: !Ref Enviroment
+        - Key: Project
+          Value: GithubActionsTesting
 
-  Outputs:
-    BucketName:
-      Desvription: 'Name of created S3 Bucket'
-      Value: !Ref MyS3Bucket
-
-
+Outputs:
+  BucketName:
+    Description: 'Name of the created S3 bucket'
+    Value: !Sub 'MyS3Bucket-${AWS::StackName}-${Enviroment}'  # Output the same dynamic name used in BucketName
