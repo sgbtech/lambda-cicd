@@ -1,4 +1,3 @@
-
 name: Deploy AWS Lambda
 
 on: 
@@ -7,40 +6,37 @@ on:
       - main
     paths:
       - 'lambda/'
-jobs:
-  deploy-lambda: # Name of our job
-    runs-on: ubuntu-latest # Sets or specifies the runner
-    steps:
-      - uses: actions/checkout@v2
 
-      - name: Set Up Python # Sets up our Python enviroment
+jobs:
+  deploy-lambda:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set Up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.11'
 
-      - name: Install Dependencies # Insatlls any packages
+      - name: Install Dependencies
         run: |
-            python -m pip install --upgrade pip
-            pip install --target=lambda/ -r lambda/requirements.txt
+          python -m pip install --upgrade pip
+          pip install --target=lambda/ -r lambda/requirements.txt
 
-
-      - name: Configure AWS Creds # Sets up AWS credentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
 
-      - name: Deploy Lambda Function                                            
+      - name: Verify AWS CLI Installation
+        run: aws --version  # Ensures AWS CLI is available
+
+      - name: Deploy Lambda Function
         run: |
-            cd lambda
-            zip -r lambda.zip . -x "*.git*" "*__pycache__*" "*.zip"
-            aws lambda update-function-code --function-name my-test-cicd-lambda --zip-file fileb://$(pwd)/lambda.zip
-
-
-
-
-        
-
-
-
+          cd lambda
+          zip -r lambda.zip . -x "*.git*" "*__pycache__*" "*.zip"
+          ls -lh lambda.zip  # Verify ZIP file size and existence
+          aws lambda update-function-code --function-name my-test-cicd-lambda --zip-file fileb://$(pwd)/lambda.zip
