@@ -24,4 +24,4 @@ Resources:
 Outputs:
   BucketName:
     Description: 'Name of the created S3 bucket'  # Description for the output
-    Value: !GetAtt MyS3BucketBucketName  # Get the actual bucket name
+    Value: !GetAtt MyS3Bucket.BucketName  # Get the actual bucket name
